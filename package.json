@@ -1,6 +1,6 @@
 {
   "name": "pi-dynamic-subagents",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A Pi subagent dispatcher with per-agent fallback models.",
   "keywords": ["pi-package", "pi", "subagent", "subagents", "dynamic", "fallback", "agents"],
   "license": "MIT",
