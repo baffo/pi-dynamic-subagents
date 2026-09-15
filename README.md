@@ -4,6 +4,10 @@ A [Pi](https://pi.dev) package that provides the `subagent` tool with ordered, p
 
 It is a drop-in replacement for the standalone subagent extension: use **one or the other**, never both.
 
+## Acknowledgements
+
+This project is based on [nicobailon/pi-subagents](https://github.com/nicobailon/pi-subagents).
+
 ## Install
 
 ```bash
