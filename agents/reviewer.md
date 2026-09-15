@@ -1,5 +1,5 @@
 ---
-name: reviewer-deep
+name: reviewer
 description: Code review specialist for quality and security analysis
 model:  claude-bridge/claude-opus-5
 fallbackModels:

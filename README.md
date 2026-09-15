@@ -24,9 +24,9 @@ Remove or disable any existing extension that registers a `subagent` tool before
 
 The package includes these agents automatically:
 
-- `worker-deep` — complex implementation work
+- `worker` — complex implementation work
 - `worker-fast` — small, well-defined implementation work
-- `reviewer-deep` — broad, architecture-aware reviews (read-only)
+- `reviewer` — broad, architecture-aware reviews (read-only)
 - `reviewer-fast` — localized reviews (read-only)
 
 User agents in `~/.pi/agent/agents/` and trusted project agents in `.pi/agents/` can override an included agent with the same name.
@@ -37,7 +37,7 @@ Put agent definitions in `~/.pi/agent/agents/*.md` or in a trusted project’s `
 
 ```md
 ---
-name: worker-deep
+name: worker
 description: Complex implementation worker
 model: claude-bridge/claude-opus-4-8
 fallbackModels:

@@ -2,8 +2,17 @@
   "name": "pi-dynamic-subagents",
   "version": "0.1.0",
   "description": "A Pi subagent dispatcher with per-agent fallback models.",
-  "keywords": ["pi-package", "pi", "subagent", "fallback", "agents"],
+  "keywords": ["pi-package", "pi", "subagent", "subagents", "dynamic", "fallback", "agents"],
   "license": "MIT",
+  "author": "baffo",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baffo/pi-dynamic-subagents.git"
+  },
+  "bugs": {
+    "url": "https://github.com/baffo/pi-dynamic-subagents/issues"
+  },
+  "homepage": "https://github.com/baffo/pi-dynamic-subagents#readme",
   "type": "module",
   "files": ["agents", "extensions", "README.md", "LICENSE"],
   "pi": {

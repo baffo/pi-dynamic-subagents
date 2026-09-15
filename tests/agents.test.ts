@@ -6,7 +6,7 @@ test("bundles the standard worker and reviewer agents", () => {
 	const names = new Set(discoverAgents(process.cwd(), "user").agents.map((agent) => agent.name));
 
 	assert.deepEqual(
-		["worker-deep", "worker-fast", "reviewer-deep", "reviewer-fast"].filter((name) => !names.has(name)),
+		["worker", "worker-fast", "reviewer", "reviewer-fast"].filter((name) => !names.has(name)),
 		[],
 	);
 });

@@ -1,5 +1,5 @@
 ---
-name: worker-deep
+name: worker
 description: Complex implementation worker for architecture-heavy or cross-cutting changes
 model: claude-bridge/claude-opus-4-8
 fallbackModels:
