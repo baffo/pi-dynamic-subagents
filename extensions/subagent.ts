@@ -29,7 +29,7 @@ import {
 } from "@earendil-works/pi-coding-agent";
 import { Container, Markdown, Spacer, Text } from "@earendil-works/pi-tui";
 import { Type } from "typebox";
-import { type AgentConfig, type AgentScope, discoverAgents } from "./agents.ts";
+import { copyBundledAgentsOnce, type AgentConfig, type AgentScope, discoverAgents } from "./agents.ts";
 import { classifyFailure, modelCandidates, shouldFallback, type FallbackFailure } from "./fallback.ts";
 
 const MAX_PARALLEL_TASKS = 8;
@@ -670,6 +670,8 @@ const SubagentParams = Type.Object({
 });
 
 export default function (pi: ExtensionAPI) {
+	copyBundledAgentsOnce();
+
 	pi.registerTool({
 		name: "subagent",
 		label: "Subagent",

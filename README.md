@@ -29,6 +29,8 @@ The package includes these agents automatically:
 - `reviewer` — broad, architecture-aware reviews (read-only)
 - `reviewer-fast` — localized reviews (read-only)
 
+On its first startup, the package also copies these profiles to `~/.pi/agent/agents/` so you can edit them. It never overwrites an existing user file. The one-time migration is recorded outside that directory, so deleting a copied profile later switches back to the immutable bundled version instead of recreating it on the next startup.
+
 User agents in `~/.pi/agent/agents/` and trusted project agents in `.pi/agents/` can override an included agent with the same name.
 
 ## Configure agents

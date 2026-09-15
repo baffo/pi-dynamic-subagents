@@ -27,6 +27,46 @@ export interface AgentDiscoveryResult {
 	projectAgentsDir: string | null;
 }
 
+const BUNDLED_AGENTS_COPY_MARKER = ".pi-dynamic-subagents-bundled-agents-copied";
+
+function getBundledAgentsDir(): string {
+	return path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../agents");
+}
+
+/**
+ * Copy the package's starter agents into Pi's user-agent directory exactly once.
+ *
+ * The marker intentionally lives beside (rather than inside) `agents/`: users
+ * can remove every copied file to opt back into the immutable bundled profiles
+ * without the next Pi startup restoring them. Existing user files always win.
+ */
+export function copyBundledAgentsOnce(
+	bundledDir = getBundledAgentsDir(),
+	userDir = path.join(getAgentDir(), "agents"),
+	markerPath = path.join(getAgentDir(), BUNDLED_AGENTS_COPY_MARKER),
+): void {
+	if (fs.existsSync(markerPath)) return;
+
+	try {
+		const entries = fs.readdirSync(bundledDir, { withFileTypes: true });
+		fs.mkdirSync(userDir, { recursive: true });
+
+		for (const entry of entries) {
+			if (!entry.name.endsWith(".md") || (!entry.isFile() && !entry.isSymbolicLink())) continue;
+			const source = path.join(bundledDir, entry.name);
+			const destination = path.join(userDir, entry.name);
+			if (!fs.existsSync(destination)) fs.copyFileSync(source, destination, fs.constants.COPYFILE_EXCL);
+		}
+
+		fs.writeFileSync(markerPath, "Bundled agents were copied once. Delete this marker to run the migration again.\n", {
+			encoding: "utf-8",
+			mode: 0o600,
+		});
+	} catch {
+		// Agent bootstrap must not prevent the bundled profiles from working.
+	}
+}
+
 /**
  * Raw agent frontmatter. Values are `unknown` because `parseFrontmatter` runs a
  * real YAML parser, so any scalar or collection can appear here.
@@ -147,7 +187,7 @@ function findNearestProjectAgentsDir(cwd: string): string | null {
 }
 
 export function discoverAgents(cwd: string, scope: AgentScope): AgentDiscoveryResult {
-	const builtinDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../agents");
+	const builtinDir = getBundledAgentsDir();
 	const userDir = path.join(getAgentDir(), "agents");
 	const projectAgentsDir = findNearestProjectAgentsDir(cwd);
 
